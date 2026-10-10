@@ -13,21 +13,30 @@ jobs:
 
     steps:
       - name: Descargar el proyecto
-        uses: actions/checkout@v6
+        uses: actions/checkout@v4
+
+      - name: Preparar Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Instalar Flet
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install "flet==0.85.3" flet-geolocator
+
+      - name: Mostrar versión de Flet
+        run: |
+          python -c "import flet; print(flet.__version__)"
+          flet --help
 
       - name: Compilar APK
-        id: build
-        uses: flet-dev/flet-build-action@v1
-        with:
-          target: apk
-          runner-python-version: "3.13"
-          bundled-python-version: "3.13"
-          build-number: ${{ github.run_number }}
+        run: |
+          flet build apk --verbose
 
-      - name: Publicar el archivo generado
-        uses: actions/upload-artifact@v7
+      - name: Publicar APK
+        uses: actions/upload-artifact@v4
         with:
           name: gps-flet-apk
-          path: ${{ steps.build.outputs.archive-path }}
-          archive: false
+          path: build/apk/*.apk
           if-no-files-found: error
