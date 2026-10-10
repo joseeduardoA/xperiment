@@ -1,0 +1,33 @@
+
+name: Compilar APK de Flet
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el proyecto
+        uses: actions/checkout@v6
+
+      - name: Compilar APK
+        id: build
+        uses: flet-dev/flet-build-action@v1
+        with:
+          target: apk
+          runner-python-version: "3.13"
+          bundled-python-version: "3.13"
+          build-number: ${{ github.run_number }}
+
+      - name: Publicar el archivo generado
+        uses: actions/upload-artifact@v7
+        with:
+          name: gps-flet-apk
+          path: ${{ steps.build.outputs.archive-path }}
+          archive: false
+          if-no-files-found: error
