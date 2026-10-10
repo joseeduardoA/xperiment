@@ -1,0 +1,19 @@
+
+[project]
+name = "gps-flet"
+version = "1.0.0"
+description = "Rastreador GPS con Flet"
+requires-python = ">=3.10"
+dependencies = [
+    "flet",
+    "plyer",
+]
+
+[tool.flet]
+org = "com.ejemplo"
+product = "Rastreador GPS"
+company = "Proyecto personal"
+
+[tool.flet.android.permission]
+"android.permission.ACCESS_FINE_LOCATION" = true
+"android.permission.ACCESS_COARSE_LOCATION" = true
