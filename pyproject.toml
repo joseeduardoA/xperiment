@@ -2,17 +2,15 @@
 [project]
 name = "gps-flet"
 version = "1.0.0"
-description = "Rastreador GPS con Flet"
 requires-python = ">=3.10"
 dependencies = [
-    "flet",
-    "plyer",
+    "flet==0.85.3",
+    "flet-geolocator",
 ]
 
 [tool.flet]
-org = "com.ejemplo"
+org = "com.joseeduardoA"
 product = "Rastreador GPS"
-company = "Proyecto personal"
 
 [tool.flet.android.permission]
 "android.permission.ACCESS_FINE_LOCATION" = true
