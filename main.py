@@ -30,10 +30,18 @@ async def main(page: ft.Page):
         estado.color = ft.Colors.GREEN
         page.update()
 
+    
     geo = ftg.Geolocator(
+        configuration=ftg.GeolocatorConfiguration(
+            accuracy=ftg.GeolocatorPositionAccuracy.HIGH,
+            distance_filter=0,
+        ),
         on_position_change=actualizar_posicion,
         on_error=mostrar_error,
     )
+    
+    page.services.append(geo)
+
 
     async def obtener_ubicacion(e):
         btn_gps.disabled = True
