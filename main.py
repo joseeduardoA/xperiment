@@ -44,11 +44,15 @@ async def main(page: ft.Page):
         try:
             permiso = await geo.request_permission()
             permiso_txt = str(permiso).lower()
-
-            if "whileinuse" not in permiso_txt and "always" not in permiso_txt:
+            
+            if not (
+                "while_in_use" in permiso_txt
+                or "always" in permiso_txt
+            ):
                 estado.value = f"Permiso de ubicación no concedido: {permiso}"
                 estado.color = ft.Colors.RED
                 return
+
 
             servicio_activo = await geo.is_location_service_enabled()
 
