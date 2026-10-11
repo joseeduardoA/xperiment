@@ -32,15 +32,19 @@ async def main(page: ft.Page):
 
     
     geo = ftg.Geolocator(
-        configuration=ftg.GeolocatorConfiguration(
-            accuracy=ftg.GeolocatorPositionAccuracy.HIGH,
-            distance_filter=0,
+    configuration=ftg.GeolocatorAndroidConfiguration(
+        interval_duration=ft.Duration(seconds=5),
+        foreground_notification_config=(
+            ftg.ForegroundNotificationConfiguration(
+                notification_title="Rastreador GPS activo",
+                notification_text="Compartiendo ubicación autorizada",
+                notification_channel_name="Seguimiento GPS",
+                notification_set_ongoing=True,
+            )
         ),
-        on_position_change=actualizar_posicion,
-        on_error=mostrar_error,
-    )
-    
-    page.services.append(geo)
+    ),
+    on_position_change=actualizar_posicion,
+    on_error=mostrar_error,
 
 
     async def obtener_ubicacion(e):
