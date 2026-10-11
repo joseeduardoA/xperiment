@@ -23,9 +23,15 @@ jobs:
       - name: Instalar Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.41.7"
+          flutter-version: "3.44.8"
           channel: stable
           cache: true
+
+      - name: Verificar Flutter
+        run: |
+          which flutter
+          flutter --version
+          python --version
 
       - name: Verificar herramientas
         run: |
