@@ -45,6 +45,7 @@ async def main(page: ft.Page):
     ),
     on_position_change=actualizar_posicion,
     on_error=mostrar_error,
+)
 
 
     async def obtener_ubicacion(e):
